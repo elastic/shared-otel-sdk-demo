@@ -117,7 +117,8 @@ Every `<tool>/README.md` must cover, in order:
 
 ## Docker conventions
 
-- Use a JRE base image (not JDK) to keep image size down. Example: `eclipse-temurin:17-jre`.
+- Use a JDK base image, not a JRE. The `elastic-otel-runtime-attach` library uses the JVM attach
+  API at startup, which is only available in a JDK. Example: `eclipse-temurin:17-jdk`.
 - Match the base image Java version to the build toolchain version.
 - The Docker build context is the tool's own directory. Do not reference files outside it.
 
@@ -127,6 +128,25 @@ HTTP services must expose:
 - `GET /v1/health` — returns `200 OK` with no body; used by CI to confirm the service started.
 - All other endpoints under `/v1/`.
 
+## Keeping documentation in sync
+
+Every code change that affects behaviour visible to consumers must be accompanied by a documentation
+update in the same commit. Specifically:
+
+- **Dockerfile base image changed** → update the base image example in the Docker conventions
+  section of this file and in `<tool>/README.md` if it shows a `FROM` line.
+- **New or removed environment variable** → update the configuration table in `<tool>/README.md`.
+- **New or removed HTTP endpoint** → update the endpoints table in `<tool>/README.md`.
+- **Build task or output filename changed** → update the build conventions section of this file and
+  the "Building locally" section of `<tool>/README.md`.
+- **Release workflow logic changed** → update the release workflow conventions section of this file.
+- **New tool added or removed** → update the root `README.md` tools table and this file if any
+  shared convention changes.
+
+If a change breaks something that was documented as a convention (e.g. a Docker convention),
+correct the convention text at the same time as the fix — do not leave the docs describing the
+wrong approach.
+
 ## What NOT to do
 
 - Do not add a root-level build file that aggregates tools. Tools are independent.
@@ -134,3 +154,5 @@ HTTP services must expose:
 - Do not use a single workflow to release multiple tools. One workflow per tool.
 - Do not update the root `README.md` tools table without also having the corresponding `<tool>/` directory and `<tool>/README.md` in the same commit, and vice versa.
 - Do not push a release tag without verifying the build succeeds locally first.
+- Do not make a code change that affects documented behaviour without updating the relevant docs in
+  the same commit.
