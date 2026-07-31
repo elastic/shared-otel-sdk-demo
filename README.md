@@ -1,7 +1,7 @@
 # shared-otel-sdk-demo
 
 Shared backend services and tooling used across
-[Elastic EDOT SDK](https://github.com/elastic/elastic-otel-java) demo applications.
+[Elastic EDOT SDK](https://www.elastic.co/docs/reference/opentelemetry) demo applications.
 
 ## Tools
 
