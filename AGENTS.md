@@ -4,7 +4,7 @@ This file describes the conventions that govern this repository. Read it before 
 
 ## Purpose
 
-This repository holds standalone tools shared across [Elastic EDOT SDK](https://www.elastic.co/docs/reference/opentelemetry) demo applications. Tools are kept here so consuming repos can reference a released artifact instead of copying source. Each tool is independent: its own directory, its own build, its own release lifecycle.
+This repository holds standalone tools shared across [EDOT SDK](https://www.elastic.co/docs/reference/opentelemetry) demo applications. Tools are kept here so consuming repos can reference a released artifact instead of copying source. Each tool is independent: its own directory, its own build, its own release lifecycle.
 
 ## Repository layout
 
